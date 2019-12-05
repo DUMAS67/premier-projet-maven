@@ -16,8 +16,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
+
 		<junit.version>4.11</junit.version>
 		<project.artifactId>premier-projet-maven</project.artifactId>
+
 	</properties>
 
 	<dependencies>
@@ -37,10 +39,16 @@
 	<build>
 
 		<finalName>premier-projet-maven</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-shade-plugin</artifactId>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.0.0</version>
 				<executions>
 					<execution>
@@ -48,9 +56,9 @@
 						<goals>
 							<goal>shade</goal>
 						</goals>
-						</execution>
-					</executions>
-				</plugin>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
@@ -61,7 +69,7 @@
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>3.1.0</version>
 				</plugin>
-			
+
 				<!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
@@ -75,7 +83,7 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.22.1</version>
 				</plugin>
-				
+
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>3.0.2</version>
@@ -108,4 +116,21 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<mode>DEV</mode>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<mode>PROD</mode>
+			</properties>
+		</profile>
+	</profiles>
 </project>
